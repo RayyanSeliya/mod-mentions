@@ -79,6 +79,15 @@ async function checkModMention(id: string, authorName: string, text: string, con
     }
   }
 
+  // Check if author is a moderator
+  const isAuthorModerator = moderators?.includes(authorName) || false;
+
+  // Skip if author is moderator and setting is enabled
+  if (settings.ignoreModeratorsToModerators && isAuthorModerator) {
+    console.log(`Skipping ${id} because author u/${authorName} is a moderator`);
+    return;
+  }
+
   // Parse excluded mods
   const excludedMods = settings.excludedMods.replace(/(\/?u\/)|\s/g, ""); // Strip out user tags and spaces
   const excludedModsList = (excludedMods == "") ? [] : excludedMods.toLowerCase().split(",");
