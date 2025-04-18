@@ -73,6 +73,21 @@
 - No notification should be sent
 - App logs should show the skipping message because the author is a moderator
 
+#### 4.4: Username mentions with escaped characters
+**Steps:**
+1. Log in as a regular user
+2. Create comments with the following variations:
+   - `u/the\_danish\_dane` (escaped underscores)
+   - `u/the_danish_dane` (regular underscores)
+   - Mixed variations like `u/the_danish\_dane`
+3. Check the app logs and notification destinations
+
+**Expected Result:**
+- All variations should trigger notifications
+- App logs should show successful detection of mentions
+- Modmail, Slack, or Discord notifications should be sent if configured
+- No false positives for similar but non-matching usernames
+
 ## Verification
 After running all tests, verify that:
 1. The feature correctly ignores moderator-to-moderator mentions when enabled

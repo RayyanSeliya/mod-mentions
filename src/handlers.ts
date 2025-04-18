@@ -110,14 +110,28 @@ async function checkModMention(id: string, authorName: string, text: string, con
   // - Identifies all mentioned moderators
   // - Requires exact username match (e.g. u/spez does not match u/spez_bot)
   const mentionedMods = modWatchList.filter(moderator => {
-    const search = (settings.requirePrefix ? "" : "?") + moderator;
-    const regex = new RegExp(`(^|[^a-zA-Z0-9_\\/])(\\/?u\\/)${search}($|[^a-zA-Z0-9_\\/])`, 'i');
-    return regex.test(text);
+    // Handle escaped underscores and other special characters
+    const escapedModerator = moderator.replace(/_/g, '(?:\\\\_|_)');
+    const search = (settings.requirePrefix ? "" : "?") + escapedModerator;
+    
+    // Updated regex pattern to better handle escaped characters
+    const regex = new RegExp(
+      `(^|[^a-zA-Z0-9_\\/])(\\/?u\\/)${search}($|[^a-zA-Z0-9_\\/])`,
+      'i'
+    );
+
+    // Add debug logging
+    const isMatch = regex.test(text);
+    if (isMatch) {
+      console.log(`Matched moderator "${moderator}" in text (including escaped characters)`);
+    }
+    return isMatch;
   });
 
   // Execute actions and send notifications
-  if (mentionedMods.length != 0) {
-
+  if (mentionedMods.length !== 0) {
+    console.log(`Found ${mentionedMods.length} moderator mentions with escaped handling`);
+    
     let object: Post | Comment;
     let type: string;
     if (id.includes("t3_")) {

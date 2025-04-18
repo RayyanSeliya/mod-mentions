@@ -10,6 +10,9 @@ Get notified about moderator username mentions in your subreddit and (optionally
 * Automatically handles changes to your mod team - No input required!
   * Easily exclude moderators
 * Monitors posts and comments (both new and edited)
+* Robust username detection
+  * Handles both escaped (`\_`) and unescaped (`_`) underscores in usernames
+  * Supports various Reddit markdown formatting scenarios
 * Action identified content (Report, Lock, and Remove)
 * Notifications via Modmail, Slack, or Discord
 * Tracks users to identify repeat offenders
@@ -56,6 +59,8 @@ This action appears under the moderator menu for the subreddit. It generates a l
 
 *[View Releases on GitHub](https://github.com/shiruken/mod-mentions/releases)*
 
+* v1.3.3
+  * Fixed detection of moderator mentions containing escaped underscores
 * v1.3
   * Detect all mentioned moderators
 * v1.2
