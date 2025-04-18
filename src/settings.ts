@@ -4,6 +4,13 @@ import type { Settings } from './types.js';
 export const configSettings: SettingsFormField[] = [
   {
     type: 'boolean',
+    name: 'ignoreModeratorsToModerators',
+    label: 'Ignore Moderator-to-Moderator Mentions',
+    helpText: 'Ignore notifications when moderators mention other moderators',
+    defaultValue: true,
+  },
+  {
+    type: 'boolean',
     name: 'requirePrefix',
     label: 'Require u/ prefix',
     helpText: 'Mentions must contain the u/ username-linking prefix. Disable to check for any match.',

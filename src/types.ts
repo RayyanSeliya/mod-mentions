@@ -16,6 +16,8 @@ export type Settings = {
   modmailContent: boolean,
   /** Slack or Discord webhook URL */
   webhookURL: string,
+  /** Ignore when moderators mention other moderators */
+  ignoreModeratorsToModerators: boolean,
 };
 
 /**
